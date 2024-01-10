@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Boton from './componentes/Boton'
 import Pantalla from './componentes/Pantalla'
 import BotonClear from './componentes/BotonClear'
-import {evaluate} from 'mathjs';
+
 import './App.css'
 
 
@@ -11,6 +11,7 @@ function App() {
   const agregarInput=val=>{
     setInput(input+val);
   }
+  /*
   const calcularResultado=()=>{
     if(input){
       setInput(evaluate(input))
@@ -19,7 +20,26 @@ function App() {
     }
     
   }
-
+*/
+const calcularResultado = () => {
+  if (input) {
+      try {
+          // Utilizar la función eval para evaluar la expresión
+          const resultado = eval(input);
+          
+          // Comprobar si el resultado es un número válido
+          if (typeof resultado === 'number' && !isNaN(resultado)) {
+              setInput(resultado.toString());
+          } else {
+              throw new Error('Expresión no válida');
+          }
+      } catch (error) {
+          alert('Error al evaluar la expresión');
+      }
+  } else {
+      alert('Por favor, ingrese valores para hacer cálculos...');
+  }
+};
   return (
     <>
     <h1 className='titulo'>Calculadora hecha por el Ing. Adan</h1>
